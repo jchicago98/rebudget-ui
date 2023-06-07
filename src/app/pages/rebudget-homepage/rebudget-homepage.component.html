@@ -1,6 +1,5 @@
 <div class="d-flex h-100 text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-
         <main class="px-3">
             <h1>Rebudget Calculator</h1>
             <p class="lead">Welcome to our revolutionary rebudget experience! At Rebudget, we believe that taking
@@ -14,31 +13,66 @@
 
             <div class="row justify-content-center">
                 <p>Enter your salary</p>
-                <form class="col-lg-auto mb-3 mb-lg-0">
+                <form class="col-lg-auto mb-3 mb-lg-0" [formGroup]="budgetForm" (ngSubmit)="checkUserValue()">
                     <div class="input-group">
                         <div class="input-group-text bg-dark text-white">$</div>
-                        <input type="search" class="form-control form-control-dark" placeholder="Enter your salary"
-                            aria-label="salary" appTwoDecimalPlaceNumber>
+                        <input type="search" class="form-control form-control-dark" formControlName="userWageInput"
+                            placeholder="Enter your salary" aria-label="salary" appTwoDecimalPlaceNumber>
                     </div>
 
                     <div class="mt-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1">
+                            <input class="form-check-input" formControlName="userWageSelection" type="radio"
+                                id="inlineRadio1" value="Hourly" checked>
                             <label class="form-check-label" for="inlineRadio1">Hourly</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2">
+                            <input class="form-check-input" formControlName="userWageSelection" type="radio"
+                                id="inlineRadio2" value="Salary">
                             <label class="form-check-label" for="inlineRadio2">Salary</label>
                         </div>
                     </div>
 
+                    <div class="mt-3">
+                        <p>Select the US State your primary residence is located</p>
+                        <select class="form-select" aria-label="Default select example" formControlName="userState">
+                            <option [value]="'Choose your state'" selected>Choose your state</option>
+                            <option [value]="state" *ngFor="let state of listOfUS_States; let i = index">{{state}}
+                            </option>
+                        </select>
+                    </div>
 
 
-
+                    <div class="mt-3">
+                        <button type="submit" class="btn sign-up-button">Submit</button>
+                    </div>
 
                 </form>
+
+                <div class="table-responsive mt-5">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="title-left">Total Savings Estimate you can save by 65</div>
+                                            </div>
+                                            <div class="col ">
+                                                <div class="title-right">Estimate Savings</div>
+                                            </div>
+                                        </div>
+                                </td> <!-- Span two columns in the second row -->
+                            </tr>
+                            <tr>
+                                <td>Total Taxed Income Produced: </td>
+                                <td>Total Savings: </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
 
 
