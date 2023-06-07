@@ -5,16 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RebudgetHomepageComponent } from './pages/rebudget-homepage/rebudget-homepage.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { TwoDigitDecimaNumberDirective } from './shared/two-decimal-place-directive/two-decimal-place.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     RebudgetHomepageComponent,
-    NavbarComponent
+    NavbarComponent,
+    TwoDigitDecimaNumberDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
