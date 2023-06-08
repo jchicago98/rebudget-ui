@@ -86,7 +86,7 @@
                     <div class="card">
                         <h5 class="card-header">Income</h5>
                         <div class="card-body">
-                            <div class="row" *ngFor="let incomeItem of incomeCardArray">
+                            <div class="row" *ngFor="let incomeItem of incomeCardArray; let i = index">
                                 <div class="col-sm-6">
                                     <div class="card-body">
                                         <h6 class="card-title">{{incomeItem}}</h6>
@@ -95,6 +95,27 @@
                                 <div class="col-sm-6">
                                     <div class="card-body">
                                         <h6 class="card-title">${{totalProjectSavings | number : '.2-2'}}</h6>
+                                    </div>
+                                </div>
+                                <div class="horizontal-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <div class="card">
+                        <h5 class="card-header">Expenses</h5>
+                        <div class="card-body">
+                            <div class="row" *ngFor="let expenseItem of expenseCardArray; let i = index">
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{expenseItem}}</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">${{expenseCostCardArray[i] | number : '.2-2'}}</h6>
                                     </div>
                                 </div>
                                 <div class="horizontal-line"></div>

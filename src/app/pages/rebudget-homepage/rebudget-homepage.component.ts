@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FederalInfoService } from 'src/app/core/federal-info-service/federal-info.service';
 import { US_States } from 'src/app/core/models/list-us-states';
 
 @Component({
@@ -13,7 +14,9 @@ export class RebudgetHomepageComponent {
   INITIAL_USER_STATE_MESSAGE = 'Choose your state';
   totalProjectSavings = 0;
   totalGrossPay = 0;
-  incomeCardArray = ['Projected Gross Pay', 'Project Federal Witholding', 'Project Social Security', 'Projected Medicare', 'Projected State Witholding', 'Projected Net Pay']
+  incomeCardArray = ['Projected Gross Pay', 'Projected Federal Witholding', 'Projected Social Security', 'Projected Medicare', 'Projected State Witholding', 'Projected Net Pay', 'Total Projected Income']
+  expenseCardArray = ['Housing', 'Transportation', 'Food', 'Insurance & Pension', 'Healthcare', 'Entertainment', 'Apparel', 'Misc', 'Total Projected Expenses'];
+  expenseCostCardArray = ['1885', '913', '691', '656', '454', '297', '146', '82', '5124'];
 
   budgetForm: FormGroup = this.fb.group({
     userWageInput: ['', Validators.required],
@@ -32,12 +35,12 @@ export class RebudgetHomepageComponent {
   calculateProjectedSavings() {
     if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE) {
       let ageDifference = 65 - parseFloat(this.userAge);
-      if(this.userWageSelection == 'Hourly'){
+      if (this.userWageSelection == 'Hourly') {
         var annualWageHourly = parseFloat(this.userWageInput) * 40 * 52;
         this.totalProjectSavings = (annualWageHourly * ageDifference);
         console.log(this.totalProjectSavings)
       }
-      else if(this.userWageSelection == 'Salary'){
+      else if (this.userWageSelection == 'Salary') {
         this.totalProjectSavings = parseFloat(this.userWageInput) * ageDifference;
       }
     }
@@ -45,12 +48,19 @@ export class RebudgetHomepageComponent {
 
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private federalInfoService: FederalInfoService
   ) { }
 
 
   ngOnInit() {
     this.listOfUS_States = new US_States().US_States;
+    this.federalInfoService.getFederalTaxRate().subscribe((res: any) =>{
+      res.TaxBrackets.forEach((progressiveTaxInfo:any)=>{
+        console.log(progressiveTaxInfo.Rate, progressiveTaxInfo.StartAmount)
+      })
+        
+    })
   }
 
 }
