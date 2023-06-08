@@ -47,3 +47,14 @@ td{
   margin-right: 0.5rem;
 }
 
+.card{
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 0 .15rem rgba(77, 212, 172, .25)
+}
+
+.card-header{
+  /* background-color: rgba(77, 212, 172, 0.2); */
+  background: linear-gradient(180deg,black 80%,rgba(77, 212, 172, 0.2));
+}
+

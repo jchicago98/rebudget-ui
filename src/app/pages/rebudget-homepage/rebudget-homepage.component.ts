@@ -11,26 +11,31 @@ export class RebudgetHomepageComponent {
 
   listOfUS_States: string[] = [];
   initialUserStateMessage = 'Choose your state';
+  totalProjectSavings = 0;
 
   budgetForm: FormGroup = this.fb.group({
     userWageInput: ['', Validators.required],
     userWageSelection: ['Hourly', Validators.required],
-    userState: [this.initialUserStateMessage, Validators.required]
+    userState: [this.initialUserStateMessage, Validators.required],
+    userAge: ['', Validators.required]
   },
     { updateOn: 'submit' }
   );
 
   get userWageInput(): string { return this.budgetForm.get('userWageInput')?.value; }
-  get userWageSelection(): boolean { return this.budgetForm.get('userWageSelection')?.getRawValue() }
+  get userWageSelection(): string { return this.budgetForm.get('userWageSelection')?.getRawValue() }
   get userState(): string { return this.budgetForm.get('userState')?.value; }
+  get userAge(): string { return this.budgetForm.get('userAge')?.value; }
 
-  checkUserValue() {
+  calculateProjectedSavings() {
     if (this.budgetForm.valid && this.userState != this.initialUserStateMessage) {
-      console.log(this.userWageInput);
-      console.log(this.userWageSelection);
-      console.log(this.userState)
+      let ageDifference = 65 - parseInt(this.userAge);
+      if(this.userWageSelection == 'Hourly'){
+        let annualWageHourly = parseInt(this.userWageInput) * 40 * 52;
+      }
     }
   }
+
 
   constructor(
     private fb: FormBuilder
