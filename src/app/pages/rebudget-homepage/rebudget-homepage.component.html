@@ -67,16 +67,38 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="card-body">
-                                        <h5 class="card-title">Projected Future Savings</h5>
+                                        <h6 class="card-title">Projected Future Savings</h6>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="card-body">
-                                        <h5 class="card-title">$20,000.12</h5>
+                                        <h6 class="card-title">${{totalProjectSavings | number : '.2-2'}}</h6>
                                     </div>
                                 </div>
+                                <div class="horizontal-line"></div>
                             </div>
-                            <hr>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <div class="card">
+                        <h5 class="card-header">Income</h5>
+                        <div class="card-body">
+                            <div class="row" *ngFor="let incomeItem of incomeCardArray">
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{incomeItem}}</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">${{totalProjectSavings | number : '.2-2'}}</h6>
+                                    </div>
+                                </div>
+                                <div class="horizontal-line"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

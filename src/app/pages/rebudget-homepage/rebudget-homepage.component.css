@@ -58,3 +58,18 @@ td{
   background: linear-gradient(180deg,black 80%,rgba(77, 212, 172, 0.2));
 }
 
+.horizontal-line {
+  position: relative;
+}
+
+.horizontal-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(-179.9deg, #4dd4ac, black);
+}
+
+

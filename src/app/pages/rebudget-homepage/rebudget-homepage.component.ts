@@ -10,13 +10,15 @@ import { US_States } from 'src/app/core/models/list-us-states';
 export class RebudgetHomepageComponent {
 
   listOfUS_States: string[] = [];
-  initialUserStateMessage = 'Choose your state';
+  INITIAL_USER_STATE_MESSAGE = 'Choose your state';
   totalProjectSavings = 0;
+  totalGrossPay = 0;
+  incomeCardArray = ['Projected Gross Pay', 'Project Federal Witholding', 'Project Social Security', 'Projected Medicare', 'Projected State Witholding', 'Projected Net Pay']
 
   budgetForm: FormGroup = this.fb.group({
     userWageInput: ['', Validators.required],
     userWageSelection: ['Hourly', Validators.required],
-    userState: [this.initialUserStateMessage, Validators.required],
+    userState: [this.INITIAL_USER_STATE_MESSAGE, Validators.required],
     userAge: ['', Validators.required]
   },
     { updateOn: 'submit' }
@@ -28,10 +30,15 @@ export class RebudgetHomepageComponent {
   get userAge(): string { return this.budgetForm.get('userAge')?.value; }
 
   calculateProjectedSavings() {
-    if (this.budgetForm.valid && this.userState != this.initialUserStateMessage) {
-      let ageDifference = 65 - parseInt(this.userAge);
+    if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE) {
+      let ageDifference = 65 - parseFloat(this.userAge);
       if(this.userWageSelection == 'Hourly'){
-        let annualWageHourly = parseInt(this.userWageInput) * 40 * 52;
+        var annualWageHourly = parseFloat(this.userWageInput) * 40 * 52;
+        this.totalProjectSavings = (annualWageHourly * ageDifference);
+        console.log(this.totalProjectSavings)
+      }
+      else if(this.userWageSelection == 'Salary'){
+        this.totalProjectSavings = parseFloat(this.userWageInput) * ageDifference;
       }
     }
   }
