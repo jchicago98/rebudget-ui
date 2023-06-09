@@ -10,13 +10,35 @@ import { US_States } from 'src/app/core/models/list-us-states';
 })
 export class RebudgetHomepageComponent {
 
-  listOfUS_States: string[] = [];
+  LIST_ALL_US_STATES: string[] = [];
   INITIAL_USER_STATE_MESSAGE = 'Choose your state';
+  US_STANDARD_DEDUCTION = 12950;
+  US_SOCIAL_SECURITY_TAX_RATE = 6.2 / 100;          //For employees only, not self-employed
+  US_MEDICARE_TAX_RATE = 1.45 / 100;                //For employees only, not self-employed
+  annualWage = 0;
   totalProjectSavings = 0;
-  totalGrossPay = 0;
-  incomeCardArray = ['Projected Gross Pay', 'Projected Federal Witholding', 'Projected Social Security', 'Projected Medicare', 'Projected State Witholding', 'Projected Net Pay', 'Total Projected Income']
-  expenseCardArray = ['Housing', 'Transportation', 'Food', 'Insurance & Pension', 'Healthcare', 'Entertainment', 'Apparel', 'Misc', 'Total Projected Expenses'];
-  expenseCostCardArray = ['1885', '913', '691', '656', '454', '297', '146', '82', '5124'];
+  ageDifference = 0;
+
+  expenseTableMap: Map<string, number> = new Map<string, number>([
+    ['Housing', 1885],
+    ['Transportation', 913],
+    ['Food', 691],
+    ['Insurance & Pension', 656],
+    ['Healthcare', 454],
+    ['Entertainment', 297],
+    ['Apparel', 146],
+    ['Misc', 82],
+    ['Total Projected Expenses', 0]
+  ]);
+  incomeTableMap: Map<string, number> = new Map<string, number>([
+    ['Projected Gross Pay', 0],
+    ['Projected Federal Witholding', 0],
+    ['Projected Social Security', 0],
+    ['Projected Medicare', 0],
+    ['Projected State Witholding', 0],
+    ['Projected Net Pay', 0],
+    ['Total Projected Income', 0]
+  ]);
 
   budgetForm: FormGroup = this.fb.group({
     userWageInput: ['', Validators.required],
@@ -32,18 +54,66 @@ export class RebudgetHomepageComponent {
   get userState(): string { return this.budgetForm.get('userState')?.value; }
   get userAge(): string { return this.budgetForm.get('userAge')?.value; }
 
+  getIncomeTableMap() {
+    return Array.from(this.incomeTableMap.entries());
+  }
+
+  getExpenseTableMap() {
+    return Array.from(this.expenseTableMap.entries())
+  }
+
   calculateProjectedSavings() {
     if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE) {
-      let ageDifference = 65 - parseFloat(this.userAge);
+      let projectedGrossPay = 0;
+      let annualGrossPay = 0;
+      this.ageDifference = 65 - parseFloat(this.userAge);
+
       if (this.userWageSelection == 'Hourly') {
-        var annualWageHourly = parseFloat(this.userWageInput) * 40 * 52;
-        this.totalProjectSavings = (annualWageHourly * ageDifference);
-        console.log(this.totalProjectSavings)
+        this.annualWage = parseFloat(this.userWageInput) * 40 * 52;
+        projectedGrossPay = (this.annualWage * this.ageDifference);
+        this.incomeTableMap.set('Projected Gross Pay', projectedGrossPay);
       }
       else if (this.userWageSelection == 'Salary') {
-        this.totalProjectSavings = parseFloat(this.userWageInput) * ageDifference;
+        this.annualWage = parseFloat(this.userWageInput);
+        projectedGrossPay = parseFloat(this.userWageInput) * this.ageDifference;
+        this.incomeTableMap.set('Projected Gross Pay', projectedGrossPay);
       }
+
+      annualGrossPay = this.annualWage;
+
+      this.calculateFederalTax(annualGrossPay);
+      this.calculateSocialSecurity(annualGrossPay);
+      this.calculateMedicare(annualGrossPay);
+
     }
+  }
+
+  calculateFederalTax(annualGrossPay: number) {
+    let projectedFederalTax = 0;
+    let taxableIncome = annualGrossPay - this.US_STANDARD_DEDUCTION;
+    //Standard deductions by the IRS are at 12950,
+    //so anyone making less than this receives a full refund 
+    //and does not have to pay federal taxes
+    if (taxableIncome <= 0) {
+      this.incomeTableMap.set('Projected Federal Witholding', projectedFederalTax);
+    }
+    else {
+      this.federalInfoService.getFederalTotalTax(taxableIncome).subscribe((res: any) => {
+        projectedFederalTax = res;
+        this.incomeTableMap.set('Projected Federal Witholding', projectedFederalTax * this.ageDifference);
+      }
+      )
+    }
+  }
+
+  calculateSocialSecurity(annualGrossPay: number) {
+    let annualSocialSecurityTax = this.US_SOCIAL_SECURITY_TAX_RATE * annualGrossPay;
+    this.incomeTableMap.set('Projected Social Security', annualSocialSecurityTax * this.ageDifference);
+  }
+
+  calculateMedicare(annualGrossPay: number) {
+    let annualMedicareTax = this.US_MEDICARE_TAX_RATE * annualGrossPay;
+    this.incomeTableMap.set('Projected Medicare', annualMedicareTax * this.ageDifference);
   }
 
 
@@ -54,13 +124,18 @@ export class RebudgetHomepageComponent {
 
 
   ngOnInit() {
-    this.listOfUS_States = new US_States().US_States;
-    this.federalInfoService.getFederalTaxRate().subscribe((res: any) =>{
-      res.TaxBrackets.forEach((progressiveTaxInfo:any)=>{
-        console.log(progressiveTaxInfo.Rate, progressiveTaxInfo.StartAmount)
-      })
-        
-    })
+    this.LIST_ALL_US_STATES = new US_States().US_States;
+    const sum = Array.from(this.expenseTableMap.values()).reduce((acc, curr) => acc + curr, 0);
+    this.expenseTableMap.set('Total Projected Expenses', sum);
+
+    // this.federalInfoService.getFederalTaxRate().subscribe((res: any) => {
+    //   res.TaxBrackets.forEach((progressiveTaxInfo: any) => {
+    //     console.log(progressiveTaxInfo.Rate, progressiveTaxInfo.StartAmount)
+    //   })
+    // })
+
   }
+
+
 
 }
