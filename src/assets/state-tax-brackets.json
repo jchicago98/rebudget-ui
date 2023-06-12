@@ -1,0 +1,388 @@
+{
+    "Alabama": {
+      "TaxBrackets": [
+        {"rate": "2%", "start-amount": 500},
+        {"rate": "4%", "start-amount": 2500},
+        {"rate": "5%", "start-amount": 3000}
+      ]
+    },
+    "Alaska": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "Arizona": {
+      "TaxBrackets": [
+        {"rate": "2.59%", "start-amount": 0},
+        {"rate": "3.34%", "start-amount": 27808},
+        {"rate": "4.17%", "start-amount": 55615},
+        {"rate": "4.50%", "start-amount": 166843},
+        {"rate": "4.50%", "start-amount": 250000}
+      ]
+    },
+    "Arkansas": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0},
+        {"rate": "2%", "start-amount": 5100},
+        {"rate": "3%", "start-amount": 10300},
+        {"rate": "3.4%", "start-amount": 14700},
+        {"rate": "4.7%", "start-amount": 24300}
+      ]
+    },
+    "California": {
+      "TaxBrackets": [
+        {"rate": "1%", "start-amount": 0},
+        {"rate": "2%", "start-amount": 10100},
+        {"rate": "4%", "start-amount": 23943},
+        {"rate": "6%", "start-amount": 37789},
+        {"rate": "8%", "start-amount": 52456},
+        {"rate": "9.3%", "start-amount": 66296},
+        {"rate": "10.3%", "start-amount": 338640},
+        {"rate": "11.3%", "start-amount": 406365},
+        {"rate": "12.3%", "start-amount": 677276}
+      ]
+    },
+    "Colorado": {
+      "TaxBrackets": [
+        {"rate": "4.4%", "start-amount": 0}
+      ]
+    },
+    "Connecticut": {
+      "TaxBrackets": [
+        {"rate": "4%", "start-amount": 0},
+        {"rate": "5%", "start-amount": 10001},
+        {"rate": "5.5%", "start-amount": 50001},
+        {"rate": "6%", "start-amount": 100001},
+        {"rate": "6.5%", "start-amount": 200001},
+        {"rate": "6.9%", "start-amount": 250001},
+        {"rate": "6.99%", "start-amount": 500000}
+      ]
+    },
+    "Delaware": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0},
+        {"rate": "2.2%", "start-amount": 2001},
+        {"rate": "3.9%", "start-amount": 5001},
+        {"rate": "4.8%", "start-amount": 10001},
+        {"rate": "5.2%", "start-amount": 20001},
+        {"rate": "5.55%", "start-amount": 25001}
+      ]
+    },
+    "Florida": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "Georgia": {
+      "TaxBrackets": [
+        {"rate": "1%", "start-amount": 0},
+        {"rate": "2%", "start-amount": 750},
+        {"rate": "3%", "start-amount": 2250},
+        {"rate": "4%", "start-amount": 3750},
+        {"rate": "5%", "start-amount": 5250},
+        {"rate": "5.75%", "start-amount": 7000}
+      ]
+    },
+    "Hawaii": {
+      "TaxBrackets": [
+        {"rate": "1.4%", "start-amount": 0},
+        {"rate": "3.2%", "start-amount": 2400},
+        {"rate": "5.5%", "start-amount": 4800},
+        {"rate": "6.4%", "start-amount": 9600},
+        {"rate": "6.6%", "start-amount": 14400},
+        {"rate": "7.6%", "start-amount": 19200},
+        {"rate": "9%", "start-amount": 36000},
+        {"rate": "10.9%", "start-amount": 48000},
+        {"rate": "11%", "start-amount": 150000}
+      ]
+    },
+    "Idaho": {
+      "TaxBrackets": [
+        {"rate": "1.125%", "start-amount": 0},
+        {"rate": "3.125%", "start-amount": 1516},
+        {"rate": "3.625%", "start-amount": 3031},
+        {"rate": "4.625%", "start-amount": 4551},
+        {"rate": "5.625%", "start-amount": 6066},
+        {"rate": "6.925%", "start-amount": 7591}
+      ]
+    },
+    "Illinois": {
+      "TaxBrackets": [
+        {"rate": "4.95%", "start-amount": 0}
+      ]
+    },
+    "Indiana": {
+      "TaxBrackets": [
+        {"rate": "3.23%", "start-amount": 0}
+      ]
+    },
+    "Iowa": {
+      "TaxBrackets": [
+        {"rate": "0.33%", "start-amount": 0},
+        {"rate": "0.67%", "start-amount": 1644},
+        {"rate": "2.25%", "start-amount": 3288},
+        {"rate": "4.14%", "start-amount": 6568},
+        {"rate": "5.63%", "start-amount": 14716},
+        {"rate": "5.96%", "start-amount": 24526}
+      ]
+    },
+    "Kansas": {
+      "TaxBrackets": [
+        {"rate": "3.10%", "start-amount": 0}
+      ]
+    },
+    "Kentucky": {
+      "TaxBrackets": [
+        {"rate": "2%", "start-amount": 0},
+        {"rate": "3%", "start-amount": 3000},
+        {"rate": "4%", "start-amount": 4000},
+        {"rate": "5%", "start-amount": 5000},
+        {"rate": "5.8%", "start-amount": 8000}
+      ]
+    },
+    "Louisiana": {
+      "TaxBrackets": [
+        {"rate": "2%", "start-amount": 0},
+        {"rate": "4%", "start-amount": 12500},
+        {"rate": "6%", "start-amount": 50000}
+      ]
+    },
+    "Maine": {
+      "TaxBrackets": [
+        {"rate": "5.8%", "start-amount": 0},
+        {"rate": "6.75%", "start-amount": 22000},
+        {"rate": "7.15%", "start-amount": 52300},
+        {"rate": "7.95%", "start-amount": 106200}
+      ]
+    },
+    "Maryland": {
+      "TaxBrackets": [
+        {"rate": "2%", "start-amount": 0},
+        {"rate": "3%", "start-amount": 1000},
+        {"rate": "4%", "start-amount": 2000},
+        {"rate": "4.75%", "start-amount": 3000},
+        {"rate": "5%", "start-amount": 100000},
+        {"rate": "5.25%", "start-amount": 125000},
+        {"rate": "5.5%", "start-amount": 150000},
+        {"rate": "5.75%", "start-amount": 250000}
+      ]
+    },
+    "Massachusetts": {
+      "TaxBrackets": [
+        {"rate": "5%", "start-amount": 0}
+      ]
+    },
+    "Michigan": {
+      "TaxBrackets": [
+        {"rate": "4.25%", "start-amount": 0}
+      ]
+    },
+    "Minnesota": {
+      "TaxBrackets": [
+        {"rate": "5.35%", "start-amount": 0},
+        {"rate": "6.8%", "start-amount": 27490},
+        {"rate": "7.85%", "start-amount": 87910},
+        {"rate": "9.85%", "start-amount": 166040}
+      ]
+    },
+    "Mississippi": {
+      "TaxBrackets": [
+        {"rate": "3%", "start-amount": 0},
+        {"rate": "4%", "start-amount": 5000},
+        {"rate": "5%", "start-amount": 10000}
+      ]
+    },
+    "Missouri": {
+      "TaxBrackets": [
+        {"rate": "1.5%", "start-amount": 0},
+        {"rate": "2%", "start-amount": 1008},
+        {"rate": "2.5%", "start-amount": 2016},
+        {"rate": "3%", "start-amount": 3024},
+        {"rate": "3.5%", "start-amount": 4032},
+        {"rate": "4%", "start-amount": 5040},
+        {"rate": "4.5%", "start-amount": 6048},
+        {"rate": "5%", "start-amount": 7056},
+        {"rate": "5.4%", "start-amount": 8064}
+      ]
+    },
+    "Montana": {
+      "TaxBrackets": [
+        {"rate": "1%", "start-amount": 0},
+        {"rate": "2%", "start-amount": 3100},
+        {"rate": "3%", "start-amount": 5400},
+        {"rate": "4%", "start-amount": 8100},
+        {"rate": "5%", "start-amount": 11000},
+        {"rate": "6%", "start-amount": 14000}
+      ]
+    },
+    "Nebraska": {
+      "TaxBrackets": [
+        {"rate": "2.46%", "start-amount": 0},
+        {"rate": "3.51%", "start-amount": 3190},
+        {"rate": "5.01%", "start-amount": 6380},
+        {"rate": "5.34%", "start-amount": 8640},
+        {"rate": "6.84%", "start-amount": 17320}
+      ]
+    },
+    "Nevada": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "New Hampshire": {
+      "TaxBrackets": [
+        {"rate": "5%", "start-amount": 0}
+      ]
+    },
+    "New Jersey": {
+      "TaxBrackets": [
+        {"rate": "1.4%", "start-amount": 0},
+        {"rate": "1.75%", "start-amount": 20000},
+        {"rate": "2.45%", "start-amount": 35000},
+        {"rate": "3.5%", "start-amount": 40000},
+        {"rate": "5.525%", "start-amount": 75000},
+        {"rate": "6.37%", "start-amount": 500000},
+        {"rate": "8.97%", "start-amount": 1000000}
+      ]
+    },
+    "New Mexico": {
+      "TaxBrackets": [
+        {"rate": "1.7%", "start-amount": 0},
+        {"rate": "3.2%", "start-amount": 5500},
+        {"rate": "4.7%", "start-amount": 11000},
+        {"rate": "4.9%", "start-amount": 16000}
+      ]
+    },
+    "New York": {
+      "TaxBrackets": [
+        {"rate": "4%", "start-amount": 0},
+        {"rate": "4.5%", "start-amount": 8500},
+        {"rate": "5.25%", "start-amount": 11700},
+        {"rate": "5.9%", "start-amount": 13900},
+        {"rate": "6.21%", "start-amount": 21400},
+        {"rate": "6.49%", "start-amount": 80650},
+        {"rate": "6.85%", "start-amount": 215400},
+        {"rate": "8.82%", "start-amount": 1077550}
+      ]
+    },
+    "North Carolina": {
+      "TaxBrackets": [
+        {"rate": "5.25%", "start-amount": 0}
+      ]
+    },
+    "North Dakota": {
+      "TaxBrackets": [
+        {"rate": "1.10%", "start-amount": 0},
+        {"rate": "2.04%", "start-amount": 41150},
+        {"rate": "2.27%", "start-amount": 164400},
+        {"rate": "2.64%", "start-amount": 326600},
+        {"rate": "2.90%", "start-amount": 411500},
+        {"rate": "3.22%", "start-amount": 490600}
+      ]
+    },
+    "Ohio": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount":0},
+        {"rate": "2.76%", "start-amount": 26051},
+        {"rate": "3.22%", "start-amount": 46101},
+        {"rate": "3.68%", "start-amount": 92151},
+        {"rate": "3.99%", "start-amount": 115301}
+      ]
+    },
+    "Oklahoma": {
+      "TaxBrackets": [
+        {"rate": "0.5%", "start-amount": 0},
+        {"rate": "1%", "start-amount": 1000},
+        {"rate": "2%", "start-amount": 2500},
+        {"rate": "3%", "start-amount": 3750},
+        {"rate": "4%", "start-amount": 4900},
+        {"rate": "5%", "start-amount": 7200}
+      ]
+    },
+    "Oregon": {
+      "TaxBrackets": [
+        {"rate": "4.75%", "start-amount": 0},
+        {"rate": "6.75%", "start-amount": 3500},
+        {"rate": "8.75%", "start-amount": 9000},
+        {"rate": "9.9%", "start-amount": 125000}
+      ]
+    },
+    "Pennsylvania": {
+      "TaxBrackets": [
+        {"rate": "3.07%", "start-amount": 0}
+      ]
+    },
+    "Rhode Island": {
+      "TaxBrackets": [
+        {"rate": "3.75%", "start-amount": 0},
+        {"rate": "4.75%", "start-amount": 63550}
+      ]
+    },
+    "South Carolina": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "South Dakota": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "Tennessee": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "Texas": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "Utah": {
+      "TaxBrackets": [
+        {"rate": "4.95%", "start-amount": 0}
+      ]
+    },
+    "Vermont": {
+      "TaxBrackets": [
+        {"rate": "3.35%", "start-amount": 0},
+        {"rate": "6.6%", "start-amount": 40750},
+        {"rate": "7.6%", "start-amount": 84100},
+        {"rate": "8.75%", "start-amount": 184500}
+      ]
+    },
+    "Virginia": {
+      "TaxBrackets": [
+        {"rate": "2%", "start-amount": 0},
+        {"rate": "3%", "start-amount": 3000},
+        {"rate": "5%", "start-amount": 5000},
+        {"rate": "5.75%", "start-amount": 17000}
+      ]
+    },
+    "Washington": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    },
+    "West Virginia": {
+      "TaxBrackets": [
+        {"rate": "3%", "start-amount": 0},
+        {"rate": "4%", "start-amount": 10000},
+        {"rate": "4.5%", "start-amount": 25000}
+      ]
+    },
+    "Wisconsin": {
+      "TaxBrackets": [
+        {"rate": "3.54%", "start-amount": 0},
+        {"rate": "4.65%", "start-amount": 11730},
+        {"rate": "6.27%", "start-amount": 23470},
+        {"rate": "7.65%", "start-amount": 259480}
+      ]
+    },
+    "Wyoming": {
+      "TaxBrackets": [
+        {"rate": "0%", "start-amount": 0}
+      ]
+    }
+  }
+  
