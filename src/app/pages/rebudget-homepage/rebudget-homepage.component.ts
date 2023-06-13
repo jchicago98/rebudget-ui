@@ -134,11 +134,6 @@ export class RebudgetHomepageComponent {
   }
 
   calculateProjectedIncome(){
-    console.log('Projected Gross Pay',this.incomeTableMap.get('Projected Gross Pay'));
-    console.log('Projected Federal Witholding', this.incomeTableMap.get('Projected Federal Witholding'));
-    console.log('Projected Social Security', this.incomeTableMap.get('Projected Social Security'));
-    console.log('Projected Medicare', this.incomeTableMap.get('Projected Medicare'));
-    console.log('Projected State Witholding', this.incomeTableMap.get('Projected State Witholding'));
     let projectedIncome = (this.incomeTableMap.get('Projected Gross Pay') ?? 0) - (this.incomeTableMap.get('Projected Federal Witholding') ?? 0) - (this.incomeTableMap.get('Projected Social Security') ?? 0) - (this.incomeTableMap.get('Projected Medicare') ?? 0) - (this.incomeTableMap.get('Projected State Witholding') ?? 0);
     this.incomeTableMap.set('Total Projected Income', projectedIncome);
   }
