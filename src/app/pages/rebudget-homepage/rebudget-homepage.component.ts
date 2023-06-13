@@ -28,7 +28,9 @@ export class RebudgetHomepageComponent {
     ['Entertainment', 297],
     ['Apparel', 146],
     ['Misc', 82],
-    ['Total Projected Expenses', 0]
+    ['Total Monthly Projected Expenses', 0],
+    ['Total Annual Projected Expenses', 0],
+    ['Total Projected Expenses', 0],
   ]);
   incomeTableMap: Map<string, number> = new Map<string, number>([
     ['Projected Gross Pay', 0],
@@ -61,7 +63,7 @@ export class RebudgetHomepageComponent {
     return Array.from(this.expenseTableMap.entries())
   }
 
-  calculateProjectedSavings() {
+  async calculateProjectedSavings() {
     if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE) {
       let projectedGrossPay = 0;
       let annualGrossPay = 0;
@@ -80,37 +82,31 @@ export class RebudgetHomepageComponent {
 
       annualGrossPay = this.annualWage;
 
-      this.calculateFederalTax(annualGrossPay);
+      await this.calculateFederalTax(annualGrossPay);
       this.calculateSocialSecurity(annualGrossPay);
       this.calculateMedicare(annualGrossPay);
-      this.calculateStateTax(annualGrossPay);
+      await this.calculateStateTax(annualGrossPay);
       this.calculateProjectedIncome();
 
-      let totalProjectedExpenses = this.expenseTableMap.get('Total Projected Expenses') ?? 0;
-      totalProjectedExpenses = totalProjectedExpenses * 12 * this.ageDifference;
-
-      console.log(totalProjectedExpenses)
+      let totalProjectedExpenses = this.expenseTableMap.get('Total Annual Projected Expenses') ?? 0;
+      totalProjectedExpenses = totalProjectedExpenses * this.ageDifference;
+      this.expenseTableMap.set('Total Projected Expenses', totalProjectedExpenses);
 
       this.totalProjectSavings = (this.incomeTableMap.get('Total Projected Income') ?? 0) - (totalProjectedExpenses);
 
     }
   }
 
-  calculateFederalTax(annualGrossPay: number) {
+  async calculateFederalTax(annualGrossPay: number) {
     let projectedFederalTax = 0;
     let taxableIncome = annualGrossPay - this.US_STANDARD_DEDUCTION;
-    //Standard deductions by the IRS are at 12950,
-    //so anyone making less than this receives a full refund 
-    //and does not have to pay federal taxes
+  
     if (taxableIncome <= 0) {
       this.incomeTableMap.set('Projected Federal Witholding', projectedFederalTax);
-    }
-    else {
-      this.federalInfoService.getFederalTotalTax(taxableIncome).subscribe((res: any) => {
-        projectedFederalTax = res;
-        this.incomeTableMap.set('Projected Federal Witholding', projectedFederalTax * this.ageDifference);
-      }
-      )
+    } else {
+      const res = await this.federalInfoService.getFederalTotalTax(taxableIncome).toPromise() ?? 0;
+      projectedFederalTax = res;
+      this.incomeTableMap.set('Projected Federal Witholding', projectedFederalTax * this.ageDifference);
     }
   }
 
@@ -124,22 +120,25 @@ export class RebudgetHomepageComponent {
     this.incomeTableMap.set('Projected Medicare', annualMedicareTax * this.ageDifference);
   }
 
-  calculateStateTax(annualGrossPay: number) {
+  async calculateStateTax(annualGrossPay: number) {
     let projectedStateTax = 0;
     let taxableIncome = annualGrossPay - this.US_STANDARD_DEDUCTION;
+  
     if (taxableIncome <= 0) {
       this.incomeTableMap.set('Projected State Witholding', projectedStateTax);
-    }
-    else {
-      this.stateInfoService.getStateTotalTax(this.userState, taxableIncome).subscribe((res: any) => {
-        projectedStateTax = res;
-        this.incomeTableMap.set('Projected State Witholding', projectedStateTax * this.ageDifference);
-      }
-      )
+    } else {
+      const res = await this.stateInfoService.getStateTotalTax(this.userState, taxableIncome).toPromise() ?? 0;
+      projectedStateTax = res;
+      this.incomeTableMap.set('Projected State Witholding', projectedStateTax * this.ageDifference);
     }
   }
 
   calculateProjectedIncome(){
+    console.log('Projected Gross Pay',this.incomeTableMap.get('Projected Gross Pay'));
+    console.log('Projected Federal Witholding', this.incomeTableMap.get('Projected Federal Witholding'));
+    console.log('Projected Social Security', this.incomeTableMap.get('Projected Social Security'));
+    console.log('Projected Medicare', this.incomeTableMap.get('Projected Medicare'));
+    console.log('Projected State Witholding', this.incomeTableMap.get('Projected State Witholding'));
     let projectedIncome = (this.incomeTableMap.get('Projected Gross Pay') ?? 0) - (this.incomeTableMap.get('Projected Federal Witholding') ?? 0) - (this.incomeTableMap.get('Projected Social Security') ?? 0) - (this.incomeTableMap.get('Projected Medicare') ?? 0) - (this.incomeTableMap.get('Projected State Witholding') ?? 0);
     this.incomeTableMap.set('Total Projected Income', projectedIncome);
   }
@@ -155,15 +154,11 @@ export class RebudgetHomepageComponent {
   ngOnInit() {
     this.LIST_ALL_US_STATES = new US_States().US_States;
     const sum = Array.from(this.expenseTableMap.values()).reduce((acc, curr) => acc + curr, 0);
-    this.expenseTableMap.set('Total Projected Expenses', sum);
+    this.expenseTableMap.set('Total Monthly Projected Expenses', sum);
+    let monthlyProjectedExpenses = this.expenseTableMap.get('Total Monthly Projected Expenses') ?? 0;
+    let annualProjectedExpenses = monthlyProjectedExpenses * 12;
+    this.expenseTableMap.set('Total Annual Projected Expenses', annualProjectedExpenses);
 
-    // this.stateInfoService.getStateTotalTax('Alabama', 30000).subscribe((res)=>console.log(res));
-
-    // this.federalInfoService.getFederalTaxRate().subscribe((res: any) => {
-    //   res.TaxBrackets.forEach((progressiveTaxInfo: any) => {
-    //     console.log(progressiveTaxInfo.Rate, progressiveTaxInfo.StartAmount)
-    //   })
-    // })
 
   }
 
