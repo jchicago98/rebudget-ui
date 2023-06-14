@@ -45,6 +45,15 @@
                     </div>
 
                     <div class="mt-3">
+                        <p>Select the age you want to retire by</p>
+                        <select class="form-select" aria-label="Default select example" formControlName="userState">
+                            <option [value]="'Choose your state'" selected>Choose your retirement age</option>
+                            <option [value]="state" *ngFor="let state of LIST_ALL_US_STATES; let i = index">{{state}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mt-3">
                         <p>Select the US State your primary residence is located</p>
                         <select class="form-select" aria-label="Default select example" formControlName="userState">
                             <option [value]="'Choose your state'" selected>Choose your state</option>
@@ -107,27 +116,36 @@
 
                         <div class="col">
                             <div class="card">
-                                <h5 class="card-header">Expenses</h5>
-                                <div class="card-body">
-                                    <div class="row" *ngFor="let expenseItem of getExpenseTableMap(); let i = index">
-                                        <div class="col-sm-6">
-                                            <div class="card-body">
-                                                <h6 class="card-title">{{expenseItem[0]}}</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="card-body">
-                                                <h6 class="card-title">${{expenseItem[1] | number :
-                                                    '.2-2'}}</h6>
-                                            </div>
-                                        </div>
-                                        <div class="horizontal-line"></div>
+                              <h5 class="card-header">Expenses</h5>
+                              <div class="card-body">
+                                <div class="row" *ngFor="let expenseItem of getExpenseTableMap(); let i = index">
+                                  <div class="col-sm-6">
+                                    <div class="card-body">
+                                      <h6 class="card-title">{{expenseItem[0]}}</h6>
                                     </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <div class="input-group" *ngIf="i < 7">
+                                            <div class="input-group-text bg-dark text-white">$</div>
+                                            <input
+                                            type="search"
+                                            class="form-control form-control-dark"
+                                            [value]="expenseItem[1] | number: '.2-2'"
+                                            (change)="updateExpenseTableMap(expenseItem[0], $event)"
+                                            />
+                                        </div>
+                                      <h6 class="card-title" *ngIf="i >= 7">
+                                        ${{ expenseItem[1] | number: '.2-2' }}
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div class="horizontal-line"></div>
                                 </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
-
-                    </div>
 
 
 

@@ -72,4 +72,8 @@ td{
   background: linear-gradient(-179.9deg, #4dd4ac, black);
 }
 
+.input-group{
+  flex-wrap: nowrap !important;
+}
+
 
