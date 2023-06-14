@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FederalInfoService } from 'src/app/core/federal-info-service/federal-info.service';
+import { AGE_LIST } from 'src/app/core/models/list-all-ages';
 import { US_States } from 'src/app/core/models/list-us-states';
-import { StateInfoService } from 'src/app/core/state-info.service';
+import { StateInfoService } from 'src/app/core/state-info-service/state-info.service';
 
 @Component({
   selector: 'app-rebudget-homepage',
@@ -12,7 +13,9 @@ import { StateInfoService } from 'src/app/core/state-info.service';
 export class RebudgetHomepageComponent {
 
   LIST_ALL_US_STATES: string[] = [];
+  LIST_ALL_RETIREMENT_AGES: string [] = [];
   INITIAL_USER_STATE_MESSAGE = 'Choose your state';
+  INITIAL_USER_RETIREMENT_AGE_MESSAGE = 'Choose your retirement age';
   US_STANDARD_DEDUCTION = 12950;
   US_SOCIAL_SECURITY_TAX_RATE = 6.2 / 100;          //For employees only, not self-employed
   US_MEDICARE_TAX_RATE = 1.45 / 100;                //For employees only, not self-employed
@@ -46,7 +49,8 @@ export class RebudgetHomepageComponent {
     userWageInput: ['', Validators.required],
     userWageSelection: ['Hourly', Validators.required],
     userState: [this.INITIAL_USER_STATE_MESSAGE, Validators.required],
-    userAge: ['', Validators.required]
+    userAge: ['', Validators.required],
+    userRetirementAge: [this.INITIAL_USER_RETIREMENT_AGE_MESSAGE, Validators.required]
   },
     { updateOn: 'submit' }
   );
@@ -55,6 +59,7 @@ export class RebudgetHomepageComponent {
   get userWageSelection(): string { return this.budgetForm.get('userWageSelection')?.getRawValue() }
   get userState(): string { return this.budgetForm.get('userState')?.value; }
   get userAge(): string { return this.budgetForm.get('userAge')?.value; }
+  get userRetirementAge(): string { return this.budgetForm.get('userRetirementAge')?.value;}
 
   getIncomeTableMap() {
     return Array.from(this.incomeTableMap.entries());
@@ -77,10 +82,10 @@ export class RebudgetHomepageComponent {
   }
 
   async calculateProjectedSavings() {
-    if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE) {
+    if (this.budgetForm.valid && this.userState != this.INITIAL_USER_STATE_MESSAGE && this.userRetirementAge != this.INITIAL_USER_RETIREMENT_AGE_MESSAGE) {
       let projectedGrossPay = 0;
       let annualGrossPay = 0;
-      this.ageDifference = 65 - parseFloat(this.userAge);
+      this.ageDifference = parseFloat(this.userRetirementAge) - parseFloat(this.userAge);
 
       if (this.userWageSelection == 'Hourly') {
         this.annualWage = parseFloat(this.userWageInput) * 40 * 52;
@@ -169,6 +174,7 @@ export class RebudgetHomepageComponent {
 
   ngOnInit() {
     this.LIST_ALL_US_STATES = new US_States().US_States;
+    this.LIST_ALL_RETIREMENT_AGES = new AGE_LIST().list_retirement_ages;
     this.calculateProjectedExpenses();
   }
 

@@ -46,9 +46,9 @@
 
                     <div class="mt-3">
                         <p>Select the age you want to retire by</p>
-                        <select class="form-select" aria-label="Default select example" formControlName="userState">
-                            <option [value]="'Choose your state'" selected>Choose your retirement age</option>
-                            <option [value]="state" *ngFor="let state of LIST_ALL_US_STATES; let i = index">{{state}}
+                        <select class="form-select" aria-label="Default select example" formControlName="userRetirementAge">
+                            <option [value]="'Choose your retirement age'" selected>Choose your retirement age</option>
+                            <option [value]="ages" *ngFor="let ages of LIST_ALL_RETIREMENT_AGES; let i = index">{{ages}}
                             </option>
                         </select>
                     </div>
