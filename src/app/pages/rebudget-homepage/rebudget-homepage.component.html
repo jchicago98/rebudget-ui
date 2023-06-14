@@ -1,6 +1,5 @@
 <div class="d-flex h-100 text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-
         <main class="px-3">
             <h1>Rebudget Calculator</h1>
             <p class="lead">Welcome to our revolutionary rebudget experience! At Rebudget, we believe that taking
@@ -13,34 +12,152 @@
                 Take the first step towards financial freedom and embark on your rebudget journey with us today!</p>
 
             <div class="row justify-content-center">
-                <p>Enter your salary</p>
-                <form class="col-lg-auto mb-3 mb-lg-0">
+                <form class="col-lg-auto mb-3 mb-lg-0" [formGroup]="budgetForm"
+                    (ngSubmit)="calculateProjectedSavings()">
+                    <p>Enter your salary</p>
                     <div class="input-group">
                         <div class="input-group-text bg-dark text-white">$</div>
-                        <input type="search" class="form-control form-control-dark" placeholder="Enter your salary"
-                            aria-label="salary" appTwoDecimalPlaceNumber>
+                        <input type="search" class="form-control form-control-dark" formControlName="userWageInput"
+                            placeholder="Enter your salary" aria-label="salary" appTwoDecimalPlaceNumber>
                     </div>
 
                     <div class="mt-3">
+                        <p>Enter your current age</p>
+                        <div class="input-group">
+                            <div class="input-group-text bg-dark text-white">Age</div>
+                            <input type="search" class="form-control form-control-dark" formControlName="userAge"
+                                placeholder="Enter your age" aria-label="age" appTwoDecimalPlaceNumber>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1">
+                            <input class="form-check-input" formControlName="userWageSelection" type="radio"
+                                id="inlineRadio1" value="Hourly" checked>
                             <label class="form-check-label" for="inlineRadio1">Hourly</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2">
+                            <input class="form-check-input" formControlName="userWageSelection" type="radio"
+                                id="inlineRadio2" value="Salary">
                             <label class="form-check-label" for="inlineRadio2">Salary</label>
                         </div>
                     </div>
 
+                    <div class="mt-3">
+                        <p>Select the age you want to retire by</p>
+                        <select class="form-select" aria-label="Default select example" formControlName="userRetirementAge">
+                            <option [value]="'Choose your retirement age'" selected>Choose your retirement age</option>
+                            <option [value]="ages" *ngFor="let ages of LIST_ALL_RETIREMENT_AGES; let i = index">{{ages}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mt-3">
+                        <p>Select the US State your primary residence is located</p>
+                        <select class="form-select" aria-label="Default select example" formControlName="userState">
+                            <option [value]="'Choose your state'" selected>Choose your state</option>
+                            <option [value]="state" *ngFor="let state of LIST_ALL_US_STATES; let i = index">{{state}}
+                            </option>
+                        </select>
+                    </div>
 
 
-
+                    <div class="mt-3">
+                        <button type="submit" class="btn sign-up-button">Submit</button>
+                    </div>
 
                 </form>
-            </div>
 
+                <div class="mt-5">
+                    <div class="card">
+                        <h5 class="card-header">Future Savings</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Projected Future Savings</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <h6 class="card-title">${{totalProjectSavings | number : '.2-2'}}</h6>
+                                    </div>
+                                </div>
+                                <div class="horizontal-line"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <h5 class="card-header">Income</h5>
+                                <div class="card-body">
+                                    <div class="row" *ngFor="let incomeItem of getIncomeTableMap(); let i = index">
+                                        <div class="col-sm-6">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{incomeItem[0]}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card-body">
+                                                <h6 class="card-title">${{incomeItem[1] | number : '.2-2'}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="horizontal-line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card">
+                              <h5 class="card-header">Expenses</h5>
+                              <div class="card-body">
+                                <div class="row" *ngFor="let expenseItem of getExpenseTableMap(); let i = index">
+                                  <div class="col-sm-6">
+                                    <div class="card-body">
+                                      <h6 class="card-title">{{expenseItem[0]}}</h6>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <div class="card-body">
+                                        <div class="input-group" *ngIf="i < 7">
+                                            <div class="input-group-text bg-dark text-white">$</div>
+                                            <input
+                                            type="search"
+                                            class="form-control form-control-dark"
+                                            [value]="expenseItem[1] | number: '.2-2'"
+                                            (change)="updateExpenseTableMap(expenseItem[0], $event)"
+                                            />
+                                        </div>
+                                      <h6 class="card-title" *ngIf="i >= 7">
+                                        ${{ expenseItem[1] | number: '.2-2' }}
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div class="horizontal-line"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
 
         </main>
     </div>

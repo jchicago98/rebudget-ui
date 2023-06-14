@@ -1,0 +1,11 @@
+{
+    "TaxBrackets" : [
+        { "Rate" : "10%", "StartAmount" : 0 },
+        { "Rate" : "12%", "StartAmount" : 10275 },
+        { "Rate" : "22%", "StartAmount" : 41776 },
+        { "Rate" : "24%", "StartAmount" : 89076 },
+        { "Rate" : "32%", "StartAmount" : 170051 },
+        { "Rate" : "35%", "StartAmount" : 215951 },
+        { "Rate" : "37%", "StartAmount" : 539901 }
+    ]
+}
