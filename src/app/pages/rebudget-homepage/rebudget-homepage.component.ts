@@ -25,13 +25,13 @@ export class RebudgetHomepageComponent {
   InputValue = 1;
 
   expenseTableMap: Map<string, number> = new Map<string, number>([
-    ['Housing', 1600],
-    ['Transportation', 523],
-    ['Food', 387],
-    ['Healthcare', 454],
-    ['Entertainment', 297],
-    ['Apparel', 146],
-    ['Misc', 82],
+    ['Housing', 1400],
+    ['Transportation', 150],
+    ['Food', 200],
+    ['Healthcare', 0],
+    ['Entertainment', 50],
+    ['Apparel', 0],
+    ['Misc', 200],
     ['Total Monthly Projected Expenses', 0],
     ['Total Annual Projected Expenses', 0],
     ['Total Projected Expenses', 0],
